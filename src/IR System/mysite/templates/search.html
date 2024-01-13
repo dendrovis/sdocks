@@ -1,0 +1,65 @@
+<!--==============================================================
+# Course Name : Information Retrieval
+# Course Code : CZ4034
+# Title       : Information Retrieval Assignment (Group Project)
+# Topic       : Stock Search
+#==============================================================-->
+
+<style>
+  .displaytablestyle {
+    width: 150px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+  }
+</style>
+
+
+<!--Display of Overall Sentimental Analysis in terms of Positive and Negative-->
+<div>Overall Polarity of Sentimental Analysis</div>
+<span id="piechart"
+  style="overflow:hidden; text-align:center; display:inline-block; margin: 10px 10px 0 0; padding:5px 20px 5px 20px"></span>
+  <form  action="/" method="POST"> 
+    {% csrf_token %}
+    <label for="your_name1">Search: </label>
+    <input id="your_name2" type="text" name="data_search" value="{{ current_search }}" > <!-- [Mapping] Key : Value == name : value-->
+    <input type="submit" class = "buttonUI" value="Enter">
+    <div> {% for suggest in suggestion %} <input onclick="suggestedInput(this.value)" class="rectangle" type="submit" value= "{{ suggest }}">  {% endfor %}</div>
+    <br>
+    <div>
+      <input onclick= "prevPage()" class = "buttonUI" type="submit" value="Prev 10">
+      <input onclick= "nextPage()" class = "buttonUI" type="submit" value="Next 10">
+    </div>
+    
+    
+    <div>Page: {{ page_count }}</div>
+
+    <!--Act as cache and communicate with JS-->
+    <input type="hidden" id = "page_count" name="page_count" value="{{ page_count }}">
+    <input type="hidden" id = "search_record" name="search_record" value="{{ result_count }}">
+  </form>
+
+<br>
+
+<!--Table for displaying information based on search-->
+<table border="1"
+  style="padding:auto; margin-left:auto;margin-right:auto; border-collapse:seperate; border-spacing: 0 15px; ">
+  <tr>
+    <th class="displaytablestyle" style="width:20%;">Time Taken</th>
+    <th class="displaytablestyle" style="width:10%;">Result Found</th>
+    <th class="displaytablestyle" style="width:30%;">Positive Percentile</th>
+    <th class="displaytablestyle" style="width:30%;">Negative Percentile</th>
+  </tr>
+  <tr>
+    <td class="displaytablestyle">{{ time_taken }} s</td>
+    <td class="displaytablestyle">{{ result_count }}</td>
+    <td class="displaytablestyle">
+      <div id="pos_percent" > {{ pos_percent }} %</div>
+    </td>
+    <td class="displaytablestyle">
+      <div id="neg_percent">{{ neg_percent }} %</div>
+    </td>
+  </tr>
+</table>
+<br>
+<!--<div>[DEBUG-QUERY]: {{ item.query}}</div>-->

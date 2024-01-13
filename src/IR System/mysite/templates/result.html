@@ -1,0 +1,160 @@
+<!--==============================================================
+# Course Name : Information Retrieval
+# Course Code : CZ4034
+# Title       : Information Retrieval Assignment (Group Project)
+# Topic       : Stock Search
+#==============================================================-->
+<script src="..\static\js\jquery-2.2.4.min.js"></script>
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    font-weight: 15pt;
+  }
+  /*adding row numbers through css*/
+  .css-serial {
+    counter-reset: serial-number;
+    /* Set the serial number counter to 0 */
+    font-style: normal;
+    color: black;
+    font-weight: bold;
+  }
+
+  .css-serial td:first-child:before {
+    counter-increment: serial-number;
+    /* Increment the serial number counter */
+    content: counter(serial-number);
+    /* Display the counter */
+    text-align: center;
+    align-content: center;
+
+  }
+
+
+  .circle {
+    background-color: 	#D1EDF2;
+    display: block;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 0px solid #000;
+    color: black;
+    text-align: center;
+    padding: 25px;
+    line-height: 100px;
+
+  }
+
+
+  /*if value == 0 means undeterministic*/
+  .yellow {
+    background-color: yellow;
+  }
+
+
+  /*if value == 1  means negative*/
+  .red {
+    background-color: #FE5C5C;
+  }
+
+  /*if value == 2 means positive*/
+  .green {
+    background-color: #90EE90;
+  }
+
+  /*For Legend of Sentimental Analysis */
+
+  /* basic positioning */
+  .legend {
+    list-style: none;
+  }
+
+  .legend li {
+    float: left;
+    margin-right: 10px;
+  }
+
+  .legend span {
+    border: 1px solid #ccc;
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin: 2px;
+    border-radius: 50%;
+  }
+
+  /* your colors */
+  .legend .neutral {
+    background-color: #FFFCBB;
+  }
+
+  .legend .negative {
+    background-color: #FF4500;
+  }
+
+  .legend .positive {
+    background-color: #ADFF2F;
+  }
+</style>
+
+<table class="css-serial" width="100%" id="table-1" style="margin-right:30px;"  >
+  <thead>
+    <tr>
+      <th rowspan="2" style="color:black">Index</th>
+      <th rowspan="2" style="color:black">Company Details</th>
+      <th rowspan="2" style="color:black">Company Text</th>
+      <th style="color:black" colspan="2">Sentimental Analysis </th>
+    </tr>
+    <tr> 
+      <th scope="col">Subjectivity</th>
+      <th scope="col">Polarity</th>
+  </tr>
+  </thead>
+  {% for item in result %}
+  <tbody>
+    <tr>
+      <td class="circle" width="30%" style="padding:2px 5px 5px 2px; text-align:center; margin:165px 20px 20px 20px">
+      </td>
+
+      <td width="40%" style="text-align:left;padding:10px; padding-top: 50px;">
+        <div style="border-radius: 20px; background: 	#D1EDF2;padding:10px;  border:0px solid #000;">
+          <font size="2"><i>Name:</i><br> {{ item.companyName }}</font>
+        </div> <br>
+        <div style="border-radius: 20px; background: 	#D1EDF2;padding:10px;  border:0px solid #000;">
+          <font size="2"><i>Code:</i><br> {{ item.code }}</font>
+        </div> <br>
+        <div style="border-radius: 20px; background: 	#D1EDF2;padding:10px;  border:0px solid #000;">
+          <font size="2"><i>Date/Time:</i><br> {{ item.dateTime }}</font>
+        </div> <br>
+
+        <br>
+
+      </td>
+      <td width="70%" style="padding:10px; text-align:left;">
+        <div style="border-radius: 20px; background: 	#D1EDF2;padding:10px;  border:0px solid #000;"> {{ item.text }}
+        </div>
+      </td>
+      <td width="30%" style="padding:10px; text-align:center;">
+        <div class="circle bgChange" width="30%" style="padding:2px 5px 5px 2px; text-align:center;"> {{ item.subjectivity}} </div>
+      </td>
+
+      <td width="30%" style="padding:10px; text-align:center;">
+        <div class="circle bgChange" width="30%" style="padding:2px 5px 5px 2px; text-align:center; "> {{ item.polarity }}</div>
+      </td>
+
+    </tr>
+
+  </tbody>
+  {% endfor %}
+</table>
+
+<script>
+  $("div.bgChange").each(function () {
+    $(this).html() == 0 ? $(this).css('background-color', '#FFFCBB') : null;
+
+    $(this).html() == 1 ? $(this).css('background-color', '#FE5C5C') : null;
+
+    $(this).html() == 2 ? $(this).css('background-color', '#90EE90') : null;
+  });
+</script>

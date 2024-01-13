@@ -1,0 +1,284 @@
+<!--==============================================================
+# Course Name : Information Retrieval
+# Course Code : CZ4034
+# Title       : Information Retrieval Assignment (Group Project)
+# Topic       : Stock Search
+#==============================================================-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- basic -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- mobile metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <!-- site metas -->
+  <title>Stock Ka-Ching SG</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="..\static\css\bootstrap.min.css" type="text/css">
+  <!-- style css -->
+  <link rel="stylesheet" href="..\static\css\style.css" type="text/css">
+  <!-- Responsive-->
+  <link rel="stylesheet" href="..\static\css\responsive.css" type="text/css">
+  <!-- Scrollbar Custom CSS -->
+  <link rel="stylesheet" href="..\static\css\jquery.mCustomScrollbar.min.css" type="text/css">
+</head>
+<Style>
+  /* width */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+  border: solid 4px transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
+
+.buttonUI {
+  /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);*/
+  border-radius: 8px;
+  background-color: #c5c5c5; /* Green */
+  transition-duration: 0.4s;
+  border: 2px solid #c5c5c5;
+}
+
+.buttonUI:hover {
+  background-color: #4CAF50; /* Green */
+  border: 2px solid #4CAF50;
+  color: white;
+}
+
+
+input[type=text], select {
+  width: 500px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  
+}
+.rectangle {
+  height: 30px;
+  border: 1px solid #000c;
+  border-radius: 20px;
+  background-color: #fff;
+}
+input[type="button"]{
+   outline:none;
+}
+</Style>
+<!-- body -->
+
+<body> 
+  <!-- header -->
+  <header>
+    <!-- header inner -->
+    <div class="head-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+            <div class="email"> <a href="mailto:Stock.Kaching.SG">Email : Stock.Kaching.SG@gmail.com</a> </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+            <div class="icon"> <i> <a href="#"><img src="{% static 'assets/icon/facebook.png' %}"></a></i> <i> <a
+                  href="#"><img src="{% static 'assets/icon/twitter.png' %}"></a></i> <i> <a href="#"><img
+                    src="{% static 'assets/icon/linkedin.png' %}"></a></i> <i> <a href="#"><img
+                    src="{% static 'assets/icon/google+.png' %}"></a></i> </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+            <div class="contact"> <a href="#">Contact : +65 62353535</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="logo"> <a href="#"><img src="{% static 'assets/logo1.png' %}" alt="#"></a> </div>
+    </div>
+    <!-- end header inner -->
+  </header>
+
+  <!--Start of Overall Container-->
+  <div class="Currency">
+    <!--Container to make sure elements are within a given container size-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <!--Style for Title-->
+          <div class="titlepage">
+            <h2>TECHNOLOGY <strong class="cur">STOCK INVESTMENTS</strong></h2>
+            <span><img src="{% static 'assets/boder.png' %}" alt="img" /> </span>
+            <div style="padding-top:50px;">
+              <!-- Search Bar -->
+              {% include "search.html" %}
+              <!--<div> [DEBUG] Query SOLR: "{{ query_result }}" </div>-->
+            </div>
+            <br>
+            <!--Table for representing the legend indicator for Sentimental Analysis-->
+            <table style="margin-left:auto">
+              <tr>
+                <th>&nbsp;Subjectivity&nbsp;</th>
+                <td>
+                  <ul class="legend" style="float:right; padding-left:20px;">
+                    <li><span class="neutral"></span>Not Subjective - 0</li>
+                    <li><span class="negative"></span>Subjective - 1</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th>Polarity</th>
+                <td>
+                  <ul class="legend" style="float:right; padding-left:20px;">
+                    <li><span class="neutral"></span>Neutral - 0</li>
+                    <li><span class="negative"></span>Negative - 1</li>
+                    <li><span class="positive"></span>Positive - 2</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+            <br>
+            <div class="w3-display-bottomleft w3-padding-large w3-opacity"
+              style="max-width: 1800px; max-height: 1000px; overflow-y:scroll;">
+              <!-- Result Elements -->
+              {% include "result.html" %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End of Overall Container-->
+
+  <!--Start of footer -->
+  <footer>
+    <div class="copyright">
+      <div class="container">
+        <p>Copyright 2021 All Right Reserved By Stock Ka-Ching SG</p>
+      </div>
+    </div>
+  </footer>
+  <!-- end of footer -->
+
+  <!-- Javascript files-->
+  <script src="..\static\js\jquery.min.js"></script>
+  <script src="..\static\js\popper.min.js"></script>
+  <script src="..\static\js\bootstrap.bundle.min.js"></script>
+  <script src="..\static\js\jquery-3.0.0.min.js"></script>
+  <script src="..\static\js\plugin.js"></script>
+  <!-- sidebar -->
+  <script src="..\static\js\jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="..\static\js\custom.js"></script>
+  <!--For implementation of Pie Chart-->
+  <script src="..\static\js\chartloader.js"></script>
+
+</body>
+
+</html>
+
+<!--Start of Javascript-->
+{% block javascript %}
+<script>
+      debug = false
+    function suggestedInput(value) {
+      if(debug == true){
+        alert(value)
+
+      }
+      // Trigger action
+      document.getElementById("your_name2").value = value
+    }
+
+
+     // Go to next page of the result
+     function nextPage() {
+      var remainder = document.getElementById("search_record").value - document.getElementById("page_count").value*10
+      if(remainder <= 0){
+        if(debug == true){
+          alert('No More Page Left' + remainder)
+        }
+      } else {
+        if(debug == true){
+          alert('Go to Next Remainder:' + remainder)
+        }
+        document.getElementById("page_count").value = parseInt(document.getElementById("page_count").value) + 1;
+      }
+    };
+
+    // Go to prev page of the result
+    function prevPage() {
+      if(document.getElementById("page_count").value != 1){
+        if(debug == true){
+          alert('Go to Previous Page')
+        }
+        document.getElementById("page_count").value = parseInt(document.getElementById("page_count").value) - 1
+      } else {
+        if(debug == true){
+          alert('No More Page Left')
+        } 
+      }
+
+    };
+
+</script>
+
+<script type="text/javascript">
+  // Load google charts
+  google.charts.load('current', { 'packages': ['corechart'] });
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Draw the chart and set the chart values
+  function drawChart() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Tweets Sentimental Analysis');
+    data.addColumn('number', 'Percentage');
+
+    var test = 0
+
+    if(parseFloat(document.getElementById('pos_percent').innerText) == 0.0 && parseFloat(document.getElementById('neg_percent').innerText) == 0.0){
+
+      
+    } else {
+        data.addRows([
+        ['Positive Tweets', parseFloat(document.getElementById('pos_percent').innerText)],  // 45.0
+        ['Negative Tweets', parseFloat(document.getElementById('neg_percent').innerText)]
+      ]);
+
+    }
+
+    // Optional; add a title and set the width and height of the chart  
+    var options = { 'backgroundColor': 'transparent', 'title': '', 'width': 400, 'height': 150}; //Overall Polarity of Sentimental Analysis
+
+    // Display the chart inside the <div> element with id="piechart"
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+
+  }
+
+
+</script>
+
+{% endblock %}
+
+<!--End of Javascript-->
